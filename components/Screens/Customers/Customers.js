@@ -20,7 +20,9 @@ const Customers = () => {
     const dispatch = useDispatch()
 
     const customers = useSelector(state => state.request.customers)
-    console.log(customers, 'damn')
+    // console.log(customers, 'damn')
+
+
 
     useEffect(() => {
         setMessage('')
@@ -33,7 +35,13 @@ const Customers = () => {
         }
         dispatch(actionCreators.addCustomer(name, phoneNumber, address, (res) => {
             if (res.success === true) {
+                setName('')
+                setPhoneNumber('')
+                setAddress('')
                 setMessage('Customer added Successfully')
+                dispatch(actionCreators.getCustomers())
+                dispatch(actionCreators.addActivity({ activity: 'Added Customer', name: name }))
+                dispatch(actionCreators.getActivity())
             }
         }))
     }
@@ -56,23 +64,25 @@ const Customers = () => {
             />
             {/* <Text style={Styles.customerTxt}>No Customers Found</Text> */}
             <ScrollView contentContainerStyle={{ width: screenWidth }}>
-                <View style={Styles.productDetails}>
-                    <View style={Styles.detailsRow}>
-                        <MaterialCommunityIcons style={Styles.icon} name="account-circle" size={80} color={Colors.primary} />
-                        <View>
-                            <Text style={Styles.label1}>Kibuuka Henry</Text>
-                            <View style={Styles.detailsRow}>
-                                <Text style={Styles.label2}>0786473847 </Text>
-                                {/* <Text>yes</Text> */}
-                            </View>
-                            {/* <View style={Styles.detailsRow}>
+                {customers.map(customer => (
+                    <View key={customer._id} style={Styles.productDetails}>
+                        <View style={Styles.detailsRow}>
+                            <MaterialCommunityIcons style={Styles.icon} name="account-circle" size={80} color={Colors.primary} />
+                            <View>
+                                <Text style={Styles.label1}>{customer.name}</Text>
+                                <View style={Styles.detailsRow}>
+                                    <Text style={Styles.label2}>{customer.phoneNumber} </Text>
+                                    {/* <Text>yes</Text> */}
+                                </View>
+                                {/* <View style={Styles.detailsRow}>
                                 <Text style={Styles.label2}>Qty:</Text>
                                 <Text>yes</Text>
                             </View> */}
+                            </View>
                         </View>
+                        {/* <Text style={Styles.label3}>time</Text> */}
                     </View>
-                    {/* <Text style={Styles.label3}>time</Text> */}
-                </View>
+                ))}
             </ScrollView>
         </View>
     )

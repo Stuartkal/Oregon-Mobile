@@ -5,6 +5,7 @@ import Products from '../Screens/Products/Products'
 import Home from '../Screens/Home/Home'
 import Customers from '../Screens/Customers/Customers'
 import Sales from '../Screens/Sales/Sales'
+import Debtors from '../Screens/Home/Debtors'
 import Profile from '../Screens/Profile/Profile'
 import Login from '../Screens/Auth/Login'
 import SignUp from '../Screens/Auth/SignUp'
@@ -31,6 +32,7 @@ export const AppNavigation = () => {
         <AppStackNavigator.Navigator screenOptions={defaultOptions}>
             <AppStackNavigator.Screen name="Oregon" component={Home} options={{ headerShown: false }} />
             <AppStackNavigator.Screen name="Customers" component={Customers} />
+            <AppStackNavigator.Screen name="Debtors" component={Debtors} options={{ headerShown: false }} />
             <AppStackNavigator.Screen name="Products" component={Products} />
             <AppStackNavigator.Screen name="Sales" component={Sales} />
         </AppStackNavigator.Navigator>

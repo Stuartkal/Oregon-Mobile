@@ -24,10 +24,14 @@ const Products = (props) => {
     const [price, setPrice] = useState('')
     const [message, setMessage] = useState('')
 
+    const d = new Date()
+    const date = d.toISOString()
+
+
     const dispatch = useDispatch()
 
     const products = useSelector(state => state.request.products)
-    // console.log(products, 'gg')
+    console.log(products)
 
     const addProductHandler = () => {
         if (shop.length === 0 || name.length === 0 || unit.length === 0 || quantity.length === 0 || cost.length === 0 || price.length === 0) {
@@ -36,7 +40,16 @@ const Products = (props) => {
         dispatch(actionCreators.addProduct(shop, name, unit, quantity, cost, price, (res) => {
             if (res.success === true) {
                 // props.navigation.navigate('Products')
+                setShop('')
+                setName('')
+                setUnit('')
+                setQuantity('')
+                setCost('')
+                setPrice('')
                 setMessage('Product added Successfully')
+                dispatch(actionCreators.getProducts())
+                dispatch(actionCreators.addActivity({ activity: 'Added Product', name: name }))
+                dispatch(actionCreators.getActivity())
             }
         }))
     }
@@ -44,6 +57,7 @@ const Products = (props) => {
     useEffect(() => {
         dispatch(actionCreators.getProducts())
         setMessage('')
+        console.log("rendered")
     }, [dispatch])
 
     return (
@@ -81,7 +95,7 @@ const Products = (props) => {
                                 </View>
                             </View>
                         </View>
-                        <Text style={Styles.label3}>{moment(product.createdAt).endOf('hour').fromNow()}</Text>
+                        <Text style={Styles.label3}>{moment(product.dateCreated).fromNow()}</Text>
                     </View>
                 ))
                 }

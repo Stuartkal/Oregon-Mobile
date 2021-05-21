@@ -16,7 +16,7 @@ const reducerPersisitor = persistReducer({ key: "root", storage: AsyncStorage },
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducerPersisitor, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 const persistor = persistStore(store)
 
@@ -25,9 +25,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Navigation />
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <Navigation />
+      {/* </PersistGate> */}
     </Provider>
   )
 }

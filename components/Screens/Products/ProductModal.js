@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { View, Text, Modal, TextInput, ScrollView, Dimensions } from 'react-native'
 import Ripple from 'react-native-material-ripple'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import * as actionCreators from '../../store/ActionCreators'
 
 import Colors from '../../constants'
 import Styles from './Styles'
@@ -19,6 +21,13 @@ const ProductModal = ({
 }) => {
 
     const screenWidth = Dimensions.get('window').width;
+
+    const dispatch = useDispatch()
+
+    const closeModal = () => {
+        dispatch(actionCreators.getProducts())
+        close(false)
+    }
 
     return (
         <Modal
@@ -107,8 +116,8 @@ const ProductModal = ({
                         <Text style={Styles.btnTxt}>Add Product</Text>
                     </Ripple>
                     <View style={Styles.backButton}>
-                        <Ionicons onPress={() => close(false)} name="chevron-back-outline" size={20} color={Colors.primary} />
-                        <Text onPress={() => close(false)} style={{ color: Colors.primary }}>go back</Text>
+                        <Ionicons onPress={closeModal} name="chevron-back-outline" size={20} color={Colors.primary} />
+                        <Text onPress={closeModal} style={{ color: Colors.primary }}>go back</Text>
                     </View>
                 </ScrollView>
             </View>

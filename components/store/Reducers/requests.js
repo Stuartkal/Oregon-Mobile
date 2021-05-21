@@ -4,7 +4,11 @@ import { updateObject } from './utility'
 
 const intitialState = {
     products: [],
-    customers: []
+    customers: [],
+    sales: [],
+    productsSearchFilter: [],
+    customersSearchFilter: [],
+    recentActivity: []
 }
 
 const requests = (state = intitialState, action) => {
@@ -18,7 +22,23 @@ const requests = (state = intitialState, action) => {
             return updateObject(state, {
                 customers: action.customers,
             })
+        case actions.SET_SALES:
+            return updateObject(state, {
+                sales: action.sales,
+            })
+        case actions.SET_PRODUCT_SEARCH:
+            return updateObject(state, {
+                productsSearchFilter: action.searchResult,
+            })
 
+        case actions.SET_CUSTOMER_SEARCH:
+            return updateObject(state, {
+                customersSearchFilter: action.searchResult,
+            })
+        case actions.SET_RECENT_ACTIVITY:
+            return updateObject(state, {
+                recentActivity: action.activity
+            })
         default: return state
     }
 }

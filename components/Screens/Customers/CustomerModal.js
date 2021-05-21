@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, Modal, TextInput } from 'react-native'
+import { useDispatch } from 'react-redux'
+import * as actionCreators from '../../store/ActionCreators'
 import Ripple from 'react-native-material-ripple'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -14,6 +16,14 @@ const CustomerModal = ({
     message,
     addCustomerHandler
 }) => {
+
+    const dispatch = useDispatch()
+
+    const closeModal = () => {
+        dispatch(actionCreators.getCustomers())
+        close(false)
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -25,7 +35,7 @@ const CustomerModal = ({
                     <Text>Name</Text>
                     <TextInput
                         style={{
-                            height: 40,
+                            height: 50,
                             fontSize: 20,
                             width: '100%',
                             borderWidth: 1,
@@ -37,7 +47,7 @@ const CustomerModal = ({
                     <Text>Phone Number</Text>
                     <TextInput
                         style={{
-                            height: 40,
+                            height: 50,
                             fontSize: 20,
                             width: '100%',
                             borderWidth: 1,
@@ -49,7 +59,7 @@ const CustomerModal = ({
                     <Text>Address</Text>
                     <TextInput
                         style={{
-                            height: 40,
+                            height: 50,
                             fontSize: 20,
                             width: '100%',
                             borderWidth: 1,
@@ -64,8 +74,8 @@ const CustomerModal = ({
                     <Text style={Styles.btnTxt}>Add Customer</Text>
                 </Ripple>
                 <View style={Styles.backButton}>
-                    <Ionicons onPress={() => close(false)} name="chevron-back-outline" size={20} color={Colors.primary} />
-                    <Text onPress={() => close(false)} style={{ color: Colors.primary }}>go back</Text>
+                    <Ionicons onPress={closeModal} name="chevron-back-outline" size={20} color={Colors.primary} />
+                    <Text onPress={closeModal} style={{ color: Colors.primary }}>go back</Text>
                 </View>
             </View>
         </Modal>
